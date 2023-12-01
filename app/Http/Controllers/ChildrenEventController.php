@@ -72,7 +72,7 @@ class ChildrenEventController extends Controller
 
     public function showEventsforClass($class)
     {
-        $classWork = DB::table('class')->where('name', $class)->first();
+        $classWork = DB::table('class')->where('number', $class)->first();
         if (is_null($classWork))
             return abort(404);
 

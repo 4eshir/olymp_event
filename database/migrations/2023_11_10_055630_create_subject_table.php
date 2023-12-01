@@ -21,6 +21,7 @@ class CreateSubjectTable extends Migration
         Schema::create('subject', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('name')->charset('utf8mb4');
+            $table->integer('number')->charset('utf8mb4');
         });
 
         Schema::create('class', function (Blueprint $table) {
@@ -95,10 +96,10 @@ class CreateSubjectTable extends Migration
         DB::table('subject')->insert(['name' => 'Английский язык']);
         DB::table('subject')->insert(['name' => 'Основы безопасности жизнедеятельности (ОБЖ)']);
 
-        DB::table('class')->insert(['name' => '7-8 класс']);
-        DB::table('class')->insert(['name' => '9 класс']);
-        DB::table('class')->insert(['name' => '10 класс']);
-        DB::table('class')->insert(['name' => '11 класс']);
+        DB::table('class')->insert(['name' => '7-8 класс', 'number' => 7]);
+        DB::table('class')->insert(['name' => '9 класс', 'number' => 9]);
+        DB::table('class')->insert(['name' => '10 класс', 'number' => 10]);
+        DB::table('class')->insert(['name' => '11 класс', 'number' => 11]);
 
         DB::table('event')->insert(['subject_id' => '1', 'tour' => '1', 'status' => '0']);
         DB::table('event')->insert(['subject_id' => '1', 'tour' => '2', 'status' => '1']);
