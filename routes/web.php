@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 //Route::get('/subject', [SubjectController::class, 'showAll']);
 
-/*Route::get('show/{id}', [ChildrenEventController::class, 'show']);
+//Route::get('show/{id}', [ChildrenEventController::class, 'show']);
 Route::get('show', [ChildrenEventController::class, 'showAllEvents']);
-Route::get('showSubject/{subject}', [ChildrenEventController::class, 'showEventsforSubject']);
-Route::get('integrityСheck', [ChildrenEventController::class, 'integrityСheck']);*/
+//Route::get('showSubject/{subject}', [ChildrenEventController::class, 'showEventsforSubject']);
+//Route::get('integrityСheck', [ChildrenEventController::class, 'integrityСheck']);
