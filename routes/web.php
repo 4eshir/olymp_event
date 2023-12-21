@@ -25,4 +25,4 @@ Route::get('/', function () {
 //Route::get('show/{id}', [ChildrenEventController::class, 'show']);
 Route::get('show', [ChildrenEventController::class, 'showAllEvents']);
 Route::get('showEventsforSubjectAndClass/{subject_id},{class_number}', [ChildrenEventController::class, 'showEventsforSubjectAndClass']);
-//Route::get('integrityСheck', [ChildrenEventController::class, 'integrityСheck']);
+Route::get('test', [ChildrenEventController::class, 'test']);

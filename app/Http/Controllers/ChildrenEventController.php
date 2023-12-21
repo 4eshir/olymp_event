@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\common\ChildrenEvent;
 use App\Models\common\Subject;
 use App\Models\work\SubjectWork;
 use Illuminate\Http\Request;
 use App\Models\work\ChildrenEventWork;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class ChildrenEventController extends Controller
 {
@@ -30,8 +33,9 @@ class ChildrenEventController extends Controller
             'address' => $childrenEvent->address
         ];
 
-        return response()->json($result, 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
-            JSON_UNESCAPED_UNICODE);
+        return $result;
+            /*response()->json($result, 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+            JSON_UNESCAPED_UNICODE);*/
     }
 
     public function integrityСheck()
@@ -100,5 +104,31 @@ class ChildrenEventController extends Controller
 
         return response()->json($result, 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
             JSON_UNESCAPED_UNICODE);
+    }
+
+    public function test()
+    {
+        /*$event = new ChildrenEvent();
+        $response = $event->request('GET', 'https://olymp.event.schooltech.ru/public/show');
+        $result = json_encode($response->getBody(), true);
+        return $result;*/
+
+        $client = new Client([
+            'base_uri' => 'https://olymp.event.schooltech.ru/public/api/children_event/childrenEvent/',
+            'headers' => [
+                'Authorization' => 'Bearer ' . 'Token',
+                'Content-Type' => 'application/json',
+            ],
+            'stream' => stream_context_create([
+                'http' => [
+                    'header' => 'Charset=utf-8',
+                ],
+            ]),
+        ]);
+
+        $response = $client->request('GET', 'all');
+
+        $data = json_decode($response->getBody(), true, 512, JSON_UNESCAPED_UNICODE);
+        return $data;
     }
 }
