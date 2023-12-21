@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ChildrenEventController extends Controller
 {
-    public function __invoke(Request $request)
+    /*public function __invoke(Request $request)
     {
         return "Welcome to Vsoch";
-    }
+    }*/
 
     public function show($id)
     {
@@ -24,7 +24,7 @@ class ChildrenEventController extends Controller
 
         $result = [
             'name_subject' => $subject->name,
-            'tour' =>  $event->tour,
+            'tour' => $event->tour,
             'class' => $class->name,
             'date_olympiad' => $childrenEvent->date_olympiad,
             'address' => $childrenEvent->address
@@ -54,9 +54,9 @@ class ChildrenEventController extends Controller
         JSON_UNESCAPED_UNICODE);
     }
 
-    public function showEventsforSubject($subject)
+    public function showEventsforSubject($subject_id)
     {
-        $subjectWork = DB::table('subject')->where('name', $subject)->first();
+        $subjectWork = DB::table('subject')->where('id', $subject_id)->first();
         if (is_null($subjectWork))
             return abort(404);
 
@@ -70,13 +70,29 @@ class ChildrenEventController extends Controller
             JSON_UNESCAPED_UNICODE);
     }
 
-    public function showEventsforClass($class)
+    public function showEventsforClass($class_id)
     {
-        $classWork = DB::table('class')->where('number', $class)->first();
+        $classWork = DB::table('class')->where('id', $class_id)->first();
         if (is_null($classWork))
             return abort(404);
 
         $events = DB::table('children_event')->where('class_id', '>=', $classWork->id)->pluck('id');
+
+        $result = [];
+        foreach ($events as $event)
+            $result[] = $this->show($event);
+
+        return response()->json($result, 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+            JSON_UNESCAPED_UNICODE);
+    }
+
+    public function showEventsforSubjectAndClass($subject_id, $class_id)
+    {
+        $subjectWork = DB::table('subject')->where('id', $subject_id)->first();
+        if (is_null($subjectWork))
+            return abort(404);
+
+        $events = DB::table('children_event')->join('event','children_event.event_id', '=', 'event.id')->where('event.subject_id', '=', $subjectWork->id)->where('class_id', '=', $class_id)->pluck('children_event.id');
 
         $result = [];
         foreach ($events as $event)

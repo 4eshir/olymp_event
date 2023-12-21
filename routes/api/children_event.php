@@ -18,7 +18,7 @@ Route::get(
 )->name('api.childrenEvent.showAllEvents');
 
 Route::get(
-    'childrenEvent/subject/{subject}',
+    'childrenEvent/subject/{subject_id}',
     [ChildrenEventController::class, 'showEventsforSubject']
 )->name('api.childrenEvent.showEventsforSubject');
 
@@ -28,6 +28,11 @@ Route::get(
 )->name('api.childrenEvent.integrityСheck');
 
 Route::get(
-    'childrenEvent/class/showEventsforClass',
+    'childrenEvent/class/showEventsforClass/{class_number}',
     [ChildrenEventController::class, 'showEventsforClass']
 )->name('api.childrenEvent.showEventsforClass');
+
+Route::get(
+    'childrenEvent/class/showEventsforSubjectAndClass/{subject_id},{class_number}',
+    [ChildrenEventController::class, 'showEventsforSubjectAndClass']
+)->name('api.childrenEvent.showEventsforSubjectAndClass');
