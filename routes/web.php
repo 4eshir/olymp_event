@@ -26,3 +26,4 @@ Route::get('/', function () {
 Route::get('show', [ChildrenEventController::class, 'showAllEvents']);
 Route::get('showEventsforSubjectAndClass/{subject_id},{class_number}', [ChildrenEventController::class, 'showEventsforSubjectAndClass']);
 Route::get('test', [ChildrenEventController::class, 'test']);
+Route::get('test2', [ChildrenEventController::class, 'test2']);
